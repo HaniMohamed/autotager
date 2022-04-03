@@ -1,5 +1,5 @@
 import 'package:autotager/app/data/managers/api_manager/authentication/authentication_manager.dart';
-import 'package:autotager/app/data/managers/cache/cache_manager.dart';
+import 'package:autotager/app/data/managers/cache_manager/cache_manager.dart';
 import 'package:autotager/app/data/managers/local_db/local_db_manager.dart';
 import 'package:autotager/app/data/services/authentication/auth_service.dart';
 import 'package:autotager/app/data/services/connectivity/connectivity.dart';

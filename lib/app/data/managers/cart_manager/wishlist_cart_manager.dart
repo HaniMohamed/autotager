@@ -1,6 +1,6 @@
 import 'package:autotager/app/core/utils/action_center/action_center.dart';
 import 'package:autotager/app/data/managers/api_manager/products/products_manager.dart';
-import 'package:autotager/app/data/managers/cart/abs_cart_manager.dart';
+import 'package:autotager/app/data/managers/cart_manager/abs_cart_manager.dart';
 import 'package:autotager/app/data/managers/local_db/local_db_manager.dart';
 import 'package:autotager/app/data/model/dtos/api/products_response_dto/product.dart';
 import 'package:autotager/app/data/model/dtos/paginated_request_dto.dart';
