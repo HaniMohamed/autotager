@@ -11,8 +11,7 @@ import 'package:autotager/app/data/services/http/http_service.dart';
 import 'package:get/get.dart';
 
 class ProductsAPIManager extends AbsProductsApiManager {
-  String get baseUrl =>
-      CommonUrls.storeServerUrl + '/shop-api/taxon-products/by-slug';
+  String get baseUrl => CommonUrls.storeServerUrl + '/shop-api';
 
   @override
   RxBool inProgress = RxBool(false);
@@ -20,7 +19,7 @@ class ProductsAPIManager extends AbsProductsApiManager {
   @override
   Future<PaginatedResponseDto<Product>?> getDiscountedProducts(
       {required PaginatedRequestDto requestDto}) async {
-    Uri uri = Uri.parse(baseUrl + '/sales-discounts');
+    Uri uri = Uri.parse(baseUrl + '/taxon-products/by-slug/sales-discounts');
     uri = uri.replace(queryParameters: requestDto.toMap());
 
     inProgress.value = true;
@@ -39,11 +38,37 @@ class ProductsAPIManager extends AbsProductsApiManager {
     inProgress.value = false;
     return null;
   }
+
+  @override
+  Future<Product?> getProductBySlug(String productSlug,
+      {required PaginatedRequestDto requestDto}) async {
+    Uri uri = Uri.parse(baseUrl + '/products/by-slug/$productSlug');
+    uri = uri.replace(queryParameters: requestDto.toMap());
+
+    inProgress.value = true;
+
+    var response = await Get.find<AbsHttpService>().sendRequest(
+      uri,
+      HttpMethod.get,
+    );
+
+    if (response!.statusCode >= 200 && response.statusCode < 300) {
+      inProgress.value = false;
+
+      var map = json.decode(response.body);
+      return Product.fromMap(map);
+    }
+    inProgress.value = false;
+    return null;
+  }
 }
 
 abstract class AbsProductsApiManager {
   late RxBool inProgress;
 
   Future<PaginatedResponseDto<Product>?> getDiscountedProducts(
+      {required PaginatedRequestDto requestDto});
+
+  Future<Product?> getProductBySlug(String productSlug,
       {required PaginatedRequestDto requestDto});
 }
