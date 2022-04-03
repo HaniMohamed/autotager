@@ -9,13 +9,29 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HomeView'),
+        title: Text('Home Screen'),
         centerTitle: true,
       ),
       body: Center(
-        child: Text(
-          'HomeView is working',
-          style: TextStyle(fontSize: 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Obx(() => controller.loading.isTrue
+                ? Container(
+                    margin: EdgeInsets.symmetric(vertical: 16),
+                    child: CircularProgressIndicator())
+                : SizedBox()),
+            Text(
+              'Hello, ${controller.email.value}',
+              style: TextStyle(fontSize: 20),
+            ),
+            TextButton(
+              child: Text('Logout'),
+              onPressed: () {
+                controller.logout();
+              },
+            ),
+          ],
         ),
       ),
     );
