@@ -20,10 +20,27 @@ class HomeView extends GetView<HomeController> {
                 ? Container(
                     margin: EdgeInsets.symmetric(vertical: 16),
                     child: CircularProgressIndicator())
-                : SizedBox()),
+                : Text(controller.products.length.toString())),
             Text(
               'Hello, ${controller.email.value}',
               style: TextStyle(fontSize: 20),
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextButton(
+                  child: Text('load more'),
+                  onPressed: () {
+                    controller.getProducts();
+                  },
+                ),
+                TextButton(
+                  child: Text('fore refresh'),
+                  onPressed: () {
+                    controller.getProducts(forceRefresh: true);
+                  },
+                ),
+              ],
             ),
             TextButton(
               child: Text('Logout'),

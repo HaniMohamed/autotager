@@ -6,7 +6,7 @@ import 'package:autotager/app/data/services/http/http_service.dart';
 import 'package:get/get.dart';
 
 class AuthAPIManager extends AbsAuthApiManager {
-  String get baseUrl => CommonUrls.apiUrl + '/api-auth';
+  String get baseUrl => CommonUrls.authServerUrl + '/api-auth';
 
   @override
   RxBool inProgress = RxBool(false);
