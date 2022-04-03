@@ -1,7 +1,7 @@
 import 'package:autotager/app/core/values/common_urls.dart';
 import 'package:autotager/app/data/enums.dart';
-import 'package:autotager/app/data/model/login_response.dart';
-import 'package:autotager/app/data/model/user.dart';
+import 'package:autotager/app/data/model/dtos/api/login_response_dto/login_response.dart';
+import 'package:autotager/app/data/model/dtos/api/login_response_dto/user.dart';
 import 'package:autotager/app/data/services/http/http_service.dart';
 import 'package:get/get.dart';
 

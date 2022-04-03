@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:autotager/app/data/model/user.dart';
+import 'package:autotager/app/data/model/dtos/api/login_response_dto/user.dart';
 
 class LoginResponse {
   User? user;

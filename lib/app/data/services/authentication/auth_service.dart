@@ -1,8 +1,8 @@
 import 'package:autotager/app/core/utils/action_center/action_center.dart';
 import 'package:autotager/app/data/managers/api_manager/authentication/authentication_manager.dart';
 import 'package:autotager/app/data/managers/cache/cache_manager.dart';
-import 'package:autotager/app/data/model/login_response.dart';
-import 'package:autotager/app/data/model/user.dart';
+import 'package:autotager/app/data/model/dtos/api/login_response_dto/login_response.dart';
+import 'package:autotager/app/data/model/dtos/api/login_response_dto/user.dart';
 import 'package:autotager/app/data/services/logger/logger.dart';
 import 'package:autotager/app/routes/app_pages.dart';
 import 'package:get/get.dart';

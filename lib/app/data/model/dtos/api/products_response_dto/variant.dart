@@ -6,6 +6,7 @@ import 'price.dart';
 
 class Variant {
   String? code;
+  String? name;
   List<dynamic>? axis;
   NameAxis? nameAxis;
   bool? available;
@@ -15,6 +16,7 @@ class Variant {
 
   Variant({
     this.code,
+    this.name,
     this.axis,
     this.nameAxis,
     this.available,
@@ -25,6 +27,7 @@ class Variant {
 
   factory Variant.fromMap(Map<String, dynamic> data) => Variant(
         code: data['code'] as String?,
+        name: data['name'] as String?,
         axis: data['axis'] as List<dynamic>?,
         available: data['available'] as bool?,
         price: data['price'] == null
@@ -39,6 +42,7 @@ class Variant {
 
   Map<String, dynamic> toMap() => {
         'code': code,
+        'name': name,
         'axis': axis,
         'available': available,
         'price': price?.toMap(),

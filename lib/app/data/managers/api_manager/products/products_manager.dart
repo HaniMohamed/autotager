@@ -5,8 +5,8 @@ import 'package:autotager/app/data/enums.dart';
 import 'package:autotager/app/data/model/dtos/api/products_response_dto/product.dart';
 import 'package:autotager/app/data/model/dtos/paginated_request_dto.dart';
 import 'package:autotager/app/data/model/dtos/paginated_response_dto.dart';
-import 'package:autotager/app/data/model/login_response.dart';
-import 'package:autotager/app/data/model/user.dart';
+import 'package:autotager/app/data/model/dtos/api/login_response_dto/login_response.dart';
+import 'package:autotager/app/data/model/dtos/api/login_response_dto/user.dart';
 import 'package:autotager/app/data/services/http/http_service.dart';
 import 'package:get/get.dart';
 
