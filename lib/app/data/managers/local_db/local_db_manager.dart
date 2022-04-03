@@ -1,22 +1,15 @@
 import 'package:get/get.dart';
-import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
-class LocalDBManager extends GetxService implements AbsLocalDBManager {
+class LocalDBManager implements AbsLocalDBManager {
   String dbName = 'autotager.db';
   late Database db;
 
   @override
-  void onInit() {
-    initDB();
-    super.onInit();
-  }
-
-  @override
   Future<void> initDB() async {
     db = await openDatabase(
-      join(await getDatabasesPath(), dbName),
+      await getDatabasesPath() + dbName,
       version: 1,
     );
   }
@@ -30,11 +23,11 @@ class LocalDBManager extends GetxService implements AbsLocalDBManager {
   }
 
   @override
-  Future<bool> deleteObject(String tableName, int id) async {
+  Future<bool> deleteObject(String tableName, String key, dynamic value) async {
     await db.delete(
       tableName,
-      where: 'id = ?',
-      whereArgs: [id],
+      where: '$key = ?',
+      whereArgs: [value],
     );
     return true;
   }
@@ -54,23 +47,40 @@ class LocalDBManager extends GetxService implements AbsLocalDBManager {
   }
 
   @override
-  Future<bool> objectExists(String tableName, int id) async {
+  Future<bool> objectExists(String tableName, String key, dynamic value) async {
     var result = await db.query(
       tableName,
-      where: 'id = ?',
-      whereArgs: [id],
+      where: '$key = ?',
+      whereArgs: [value],
     );
     return result.isNotEmpty;
   }
 
   @override
-  Future<void> updateObject(String tableName, Map<String, dynamic> data) async {
+  Future<void> updateObject(String tableName, Map<String, dynamic> data,
+      String key, dynamic value) async {
     await db.update(
       tableName,
       data,
-      where: 'id = ?',
-      whereArgs: [data['id']],
+      where: '$key = ?',
+      whereArgs: [value],
     );
+  }
+
+  @override
+  Future<void> clearTable(String tableName) async {
+    await db.execute("DELETE FROM $tableName");
+  }
+
+  @override
+  Future<Map<String, dynamic>?> fetchObject(
+      String tableName, String key, value) async {
+    var result = await db.query(
+      tableName,
+      where: '$key = ?',
+      whereArgs: [value],
+    );
+    return result.isNotEmpty ? result.first : null;
   }
 }
 
@@ -81,11 +91,17 @@ abstract class AbsLocalDBManager {
 
   Future<void> insertObject(String tableName, Map<String, dynamic> data);
 
-  Future<void> updateObject(String tableName, Map<String, dynamic> data);
+  Future<void> updateObject(
+      String tableName, Map<String, dynamic> data, String key, dynamic value);
 
-  Future<bool> deleteObject(String tableName, int id);
+  Future<bool> deleteObject(String tableName, String key, dynamic value);
 
-  Future<List<Object>> listObjects(String tableName);
+  Future<void> clearTable(String tableName);
 
-  Future<bool> objectExists(String tableName, int id);
+  Future<List<Map<String, dynamic>>> listObjects(String tableName);
+
+  Future<Map<String, dynamic>?> fetchObject(
+      String tableName, String key, dynamic value);
+
+  Future<bool> objectExists(String tableName, String key, dynamic value);
 }
