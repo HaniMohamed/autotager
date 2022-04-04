@@ -19,6 +19,12 @@ class HomeView extends GetView<HomeController> {
       appBar: AppBar(
         title: Text('AutoTager Task'),
         centerTitle: true,
+        actions: [
+          IconButton(
+              tooltip: "Logout",
+              icon: Icon(Icons.logout),
+              onPressed: () => controller.logout()),
+        ],
       ),
       bottomNavigationBar: Obx(() => BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
