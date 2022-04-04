@@ -42,8 +42,10 @@ class LocalDBManager implements AbsLocalDBManager {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> listObjects(String tableName) async {
-    return await db.query(tableName);
+  Future<List<Map<String, dynamic>>> listObjects(String tableName,
+      {String? orderByKey}) async {
+    return await db.query(tableName,
+        orderBy: orderByKey != null ? '$orderByKey DESC' : null);
   }
 
   @override
@@ -98,7 +100,8 @@ abstract class AbsLocalDBManager {
 
   Future<void> clearTable(String tableName);
 
-  Future<List<Map<String, dynamic>>> listObjects(String tableName);
+  Future<List<Map<String, dynamic>>> listObjects(String tableName,
+      {String? orderByKey});
 
   Future<Map<String, dynamic>?> fetchObject(
       String tableName, String key, dynamic value);
