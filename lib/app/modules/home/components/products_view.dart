@@ -29,35 +29,37 @@ class ProductsView extends StatelessWidget {
               onRefresh: () => controller.getProducts(forceRefresh: true),
               onLoading: () => controller.getProducts(),
               footer: const ClassicFooter(),
-              child: ListView.builder(
-                itemCount: controller.products.length,
-                itemBuilder: (context, index) {
-                  Product product = controller.products[index];
-                  return ListTile(
-                    leading:
-                        Image.network(product.images?.first.cachedPath ?? ""),
-                    title: Text(
-                      product.name ?? "",
-                      maxLines: 2,
-                    ),
-                    subtitle: Text(
-                        "${product.variants?.variant?.price?.current ?? ""} ${product.variants?.variant?.price?.currency ?? ""}"),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                            onPressed: () =>
-                                controller.addToCart(product, CartType.order),
-                            icon: Icon(Icons.add_shopping_cart)),
-                        IconButton(
-                            onPressed: () => controller.addToCart(
-                                product, CartType.wishList),
-                            icon: Icon(Icons.post_add_outlined)),
-                      ],
-                    ),
-                  );
-                },
-              ))),
+              child: controller.products.isEmpty
+                  ? Center(child: Text("No products found"))
+                  : ListView.builder(
+                      itemCount: controller.products.length,
+                      itemBuilder: (context, index) {
+                        Product product = controller.products[index];
+                        return ListTile(
+                          leading: Image.network(
+                              product.images?.first.cachedPath ?? ""),
+                          title: Text(
+                            product.name ?? "",
+                            maxLines: 2,
+                          ),
+                          subtitle: Text(
+                              "${product.variants?.variant?.price?.current ?? ""} ${product.variants?.variant?.price?.currency ?? ""}"),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                  onPressed: () => controller.addToCart(
+                                      product, CartType.order),
+                                  icon: Icon(Icons.add_shopping_cart)),
+                              IconButton(
+                                  onPressed: () => controller.addToCart(
+                                      product, CartType.wishList),
+                                  icon: Icon(Icons.post_add_outlined)),
+                            ],
+                          ),
+                        );
+                      },
+                    ))),
         ),
       ],
     );

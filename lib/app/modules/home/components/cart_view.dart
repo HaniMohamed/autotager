@@ -34,40 +34,45 @@ class CartView extends StatelessWidget {
                 onRefresh: () =>
                     CartView.homeController.getCartList(cartType, cartManager),
                 footer: const ClassicFooter(),
-                child: ListView.builder(
-                    itemCount: cartManager.cartProducts.length,
-                    itemBuilder: (context, index) {
-                      CartProduct cartProduct = cartManager.cartProducts[index];
-                      return ListTile(
-                        leading: Image.network(
-                            cartProduct.product.images?.first.cachedPath ?? ""),
-                        title: Text(
-                          cartProduct.product.name ?? "",
-                          maxLines: 2,
-                        ),
-                        subtitle: Text(
-                            "${cartProduct.product.variants?.variant?.price?.current ?? ""} ${cartProduct.product.variants?.variant?.price?.currency ?? ""}"),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                                onPressed: () => CartView.homeController
-                                    .addToCart(cartProduct.product, cartType,
-                                        refresh: true),
-                                icon: Icon(Icons.add_circle)),
-                            Text(cartProduct.quantity.toString()),
-                            IconButton(
-                                onPressed: () => CartView.homeController
-                                    .decrementProductFromCart(
-                                        cartProduct.product,
-                                        cartType,
-                                        cartManager,
-                                        refresh: true),
-                                icon: Icon(Icons.remove_circle_rounded)),
-                          ],
-                        ),
-                      );
-                    }),
+                child: cartManager.cartProducts.isEmpty
+                    ? Center(child: Text("No products found"))
+                    : ListView.builder(
+                        itemCount: cartManager.cartProducts.length,
+                        itemBuilder: (context, index) {
+                          CartProduct cartProduct =
+                              cartManager.cartProducts[index];
+                          return ListTile(
+                            leading: Image.network(
+                                cartProduct.product.images?.first.cachedPath ??
+                                    ""),
+                            title: Text(
+                              cartProduct.product.name ?? "",
+                              maxLines: 2,
+                            ),
+                            subtitle: Text(
+                                "${cartProduct.product.variants?.variant?.price?.current ?? ""} ${cartProduct.product.variants?.variant?.price?.currency ?? ""}"),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                    onPressed: () => CartView.homeController
+                                        .addToCart(
+                                            cartProduct.product, cartType,
+                                            refresh: true),
+                                    icon: Icon(Icons.add_circle)),
+                                Text(cartProduct.quantity.toString()),
+                                IconButton(
+                                    onPressed: () => CartView.homeController
+                                        .decrementProductFromCart(
+                                            cartProduct.product,
+                                            cartType,
+                                            cartManager,
+                                            refresh: true),
+                                    icon: Icon(Icons.remove_circle_rounded)),
+                              ],
+                            ),
+                          );
+                        }),
               )),
         ),
       ],

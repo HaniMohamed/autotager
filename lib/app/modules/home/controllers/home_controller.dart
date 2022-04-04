@@ -96,7 +96,7 @@ class HomeController extends GetxController {
         borderWidth: 0,
         margin: EdgeInsets.all(0),
         borderRadius: 5,
-        duration: Duration(seconds: 2),
+        duration: Duration(seconds: 1),
       );
       if (refresh) {
         switch (cartType) {
@@ -120,14 +120,14 @@ class HomeController extends GetxController {
     if (result) {
       Get.snackbar(
         "Success",
-        "Product removed to cart",
+        "Product removed from cart",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: AppColors.grey,
         colorText: AppColors.blackColor,
         borderWidth: 0,
         margin: EdgeInsets.all(0),
         borderRadius: 5,
-        duration: Duration(seconds: 2),
+        duration: Duration(seconds: 1),
       );
       if (refresh) {
         switch (cartType) {
